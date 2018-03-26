@@ -22,13 +22,14 @@ If you doen't have NodeJS already installed:
 
 `npm install`
 
+`npm start`
+
+**Optional:**
 `npm install -g less`
 
 `lessc src/less/app.less src/css/app.css`
 
-`npm start`
-
-For build: `npm run build`
+**For build**: `npm run build`
 
 *Now, automatically will be open a tab in the browser at the address: http://localhost:3000*
 
