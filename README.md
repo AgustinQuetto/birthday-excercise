@@ -6,27 +6,27 @@
 
 If you doen't have NodeJS already installed:
 
-**MacOS:** brew install node
+**MacOS:** `brew install node`
 
-**Windows:** download and install NodeJS here https://nodejs.org/en/#download
+**Windows:** download and install NodeJS here `https://nodejs.org/en/#download`
 
-**Linux:** curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - sudo apt-get install -y nodejs
+**Linux:** `curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - sudo apt-get install -y nodejs`
 
-*Run node -v for check if node was installed.*
+*Run `node -v` for check if node was installed.*
 
 **Now we can proceed:**
 
-git clone https://github.com/AgustinQuetto/birthday-excercise.git
+`git clone https://github.com/AgustinQuetto/birthday-excercise.git`
 
-cd birthday-excercise
+`cd birthday-excercise`
 
-npm install
+`npm install`
 
-lessc src/less/app.less src/css/app.css
+`lessc src/less/app.less src/css/app.css`
 
-npm start
+`npm start`
 
-For build: npm run build
+For build: `npm run build`
 
 *Now, automatically will be open a tab in the browser at the address: http://localhost:3000*
 
