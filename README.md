@@ -18,7 +18,7 @@ npm install
 lessc src/less/app.less src/css/app.css
 npm start
 
-For build: npm build
+For build: npm run build
 
 *Now, automatically will be open a tab in the browser at the address: http://localhost:3000*
 
@@ -32,7 +32,7 @@ For build: npm build
 Go to http://localhost:3000/revisited and enter 123
 
 **Features:**
-Entry of users, calculator of years, translations, react components, await async, callbacks from child to parent, less, previous users are saved in local storage, webpack, responsive flex css features, fetching way, If a row is clicked on one of the previous visitors, it redraw the legend of the greeting.
+Entry of users, calculator of years, translations, react components, await async, callbacks from child to parent, less, previous users are saved in local storage, npm build, responsive flex css features, fetching way, If a row is clicked on one of the previous visitors, it redraw the legend of the greeting.
 
 
 
