@@ -3,19 +3,27 @@
 ## To be executed, follow the instructions.
 
 **Run in the console / terminal:**
+
 If you doen't have NodeJS already installed:
+
 **MacOS:** brew install node
+
 **Windows:** download and install NodeJS here https://nodejs.org/en/#download
-**Linux:** curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
-sudo apt-get install -y nodejs
+
+**Linux:** curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash - sudo apt-get install -y nodejs
 
 *Run node -v for check if node was installed.*
 
 **Now we can proceed:**
+
 git clone https://github.com/AgustinQuetto/birthday-excercise.git
+
 cd birthday-excercise
+
 npm install
+
 lessc src/less/app.less src/css/app.css
+
 npm start
 
 For build: npm run build
@@ -28,7 +36,7 @@ For build: npm run build
  - Portuguese: http://localhost:3000/br
  - English: http://localhost:3000 or http://localhost:3000/en
 
-**Get list of previous visitors**
+**Get list of previous visitors:**
 Go to http://localhost:3000/revisited and enter 123
 
 **Features:**
