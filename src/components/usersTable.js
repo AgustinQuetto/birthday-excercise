@@ -11,10 +11,10 @@ class UsersTable extends React.Component {
     let users = this.props.users
     let trUsers = users.map((user, i) => {
       return (
-        <tr>
-          <td id={i} key={i}  onClick={this.props.onChangeValue}>{user.firstName} {user.lastName}</td>
-          <td id={i} key={i}  onClick={this.props.onChangeValue}>{user.country}</td>
-          <td id={i} key={i}  onClick={this.props.onChangeValue}>{user.day}/{user.month}/{user.year}</td>
+        <tr key={i}>
+          <td id={i} onClick={this.props.onChangeValue}>{user.firstName} {user.lastName}</td>
+          <td id={i} onClick={this.props.onChangeValue}>{user.country}</td>
+          <td id={i} onClick={this.props.onChangeValue}>{user.day}/{user.month}/{user.year}</td>
         </tr>
       )
     }

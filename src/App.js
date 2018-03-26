@@ -69,7 +69,7 @@ class App extends React.Component {
   }
 
   handleChangeValue = e => {
-    this.calculateBirthday(this.state.users[e.target.key])
+    this.calculateBirthday(this.state.users[e.target.id])
   }
 
   getLanguage () {
