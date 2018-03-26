@@ -18,14 +18,44 @@ class App extends React.Component {
         month: 0,
         year: 0
       },
+      translate: {},
       message: ''
+
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  getLanguage(){
+    const url = (window.location.href).split('/')
+    let translate = {}
+    switch(url[3]) {
+      case 'es': translate = { firstName: 'Nombre', lastName: 'Apellido', country: 'País', birthday: 'Cumpleaños', here: 'aquí', save: 'Guardar' }
+        break
+      case 'br': translate = { firstName: 'Nome', lastName: 'Apelido', country: 'Country', birthday: 'Aniversário', here: 'aqui', save: 'Salvar' }
+        break
+      default: translate = { firstName: 'Firstname', lastName: 'Lastname', country: 'Country', birthday: 'Birthday', here: 'here', save: 'Guardar' }
+        break
+    }
+
+    return translate
+  }
+
+  isRevisited() {
+    const url = (window.location.href).split('/')
+    return url[3] === 'revisited' ?  true :  false
+  }
+
   componentWillMount() {
-    if (localStorage.getItem('users') != null) {
+    let language
+
+    if (this.isRevisited() && localStorage.getItem('users') != null) {
+      let password
+      
+      do{
+        password = prompt("Enter an auth key for view old entries")
+      } while (password != '123')
+
       let cachedUsers = []
       cachedUsers.push(JSON.parse(localStorage.getItem('users')))
 
@@ -47,6 +77,10 @@ class App extends React.Component {
       this.setState({ users: [] })
       console.log(this.state.users)
     }
+    language = this.getLanguage()
+    this.setState({
+      translate: language
+    })
   }
 
   onSubmit(event){
@@ -95,22 +129,22 @@ class App extends React.Component {
           <div className="container-form">
             <form onChange={this.handleInputChange}>
               <div>
-                <label for="firstName">Firstname:</label>
-                <input type="text" placeholder="firstname here" name="firstName"/>
+                <label htmlFor="firstName">{this.state.translate.firstName}:</label>
+                <input type="text" placeholder={this.state.translate.firstName+' '+this.state.translate.here} name="firstName"/>
               </div>
               <div>
-               <label for="lastname">Lastname:</label>
-               <input type="text" placeholder="lastname here" name="lastName"/>
+               <label htmlFor="lastname">{this.state.translate.lastName}:</label>
+               <input type="text" placeholder={this.state.translate.lastName+' '+this.state.translate.here} name="lastName"/>
               </div>
               <div>
-                <label for="country">Country:</label>
+                <label htmlFor="country">{this.state.translate.country}:</label>
                 <CountriesSelect countries={this.state.countries}/>
               </div>
               <div>
-                <label for="birthday">Birthday:</label>
+                <label htmlFor="birthday">{this.state.translate.birthday}:</label>
                 <input type="date" name="birthday"/>
               </div>
-              <input type="button" value="Save" onClick={this.onSubmit}/>
+              <input type="button" value={this.state.translate.save} onClick={this.onSubmit}/>
             </form>
             {this.state.message &&
               <div className="message">
@@ -119,7 +153,7 @@ class App extends React.Component {
             }
           </div>
           <div className="container-table">
-            <UsersTable users={this.state.users}/>
+            <UsersTable users={this.state.users} translate={this.state.translate}/>
           </div>
         </div>
         <h2>Agustín Ramiro Quetto Garay Lima</h2>

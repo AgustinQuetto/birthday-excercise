@@ -26,9 +26,9 @@ class UsersTable extends React.Component {
       <table>
         <thead>
           <tr>
-            <td>Name</td>
-            <td>Country</td>
-            <td>Birthday</td>
+            <td>{this.props.translate.firstName}</td>
+            <td>{this.props.translate.country}</td>
+            <td>{this.props.translate.birthday}</td>
           </tr>
         </thead>
         <tbody>
