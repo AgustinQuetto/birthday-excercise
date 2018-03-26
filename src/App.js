@@ -189,7 +189,7 @@ class App extends React.Component {
             <UsersTable users={this.state.users} translate={this.state.translate} value={this.state.value} onChangeValue={this.handleChangeValue} />
           </div>
         </div>
-        <h2>Agustín Ramiro Quetto Garay Lima</h2>
+        <h3>Agustín Ramiro Quetto Garay Lima</h3>
       </div>
     )
   }

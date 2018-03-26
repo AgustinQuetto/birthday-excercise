@@ -22,6 +22,8 @@ If you doen't have NodeJS already installed:
 
 `npm install`
 
+`npm install -g less`
+
 `lessc src/less/app.less src/css/app.css`
 
 `npm start`
