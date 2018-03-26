@@ -1,27 +1,25 @@
 import React from 'react'
 
 class UsersTable extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
     }
   }
-  
-  render() {
+
+  render () {
     let users = this.props.users
     let trUsers = users.map((user, index) => {
-      
-      return (     
-              <tr>
-                <td id={index} onClick={this.props.onChangeValue}>{user.firstName} {user.lastName}</td>
-                <td id={index} onClick={this.props.onChangeValue}>{user.country}</td>
-                <td id={index} onClick={this.props.onChangeValue}>{user.day}/{user.month}/{user.year}</td>
-              </tr>
-            )
-          }
-        )
-      
+      return (
+        <tr>
+          <td id={index} onClick={this.props.onChangeValue}>{user.firstName} {user.lastName}</td>
+          <td id={index} onClick={this.props.onChangeValue}>{user.country}</td>
+          <td id={index} onClick={this.props.onChangeValue}>{user.day}/{user.month}/{user.year}</td>
+        </tr>
+      )
+    }
+    )
+
     return (
       <table>
         <thead>

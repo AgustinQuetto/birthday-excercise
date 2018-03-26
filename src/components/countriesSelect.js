@@ -1,33 +1,32 @@
 import React from 'react'
 
 class CountriesSelect extends React.Component {
-
-  constructor(props) {
+  constructor (props) {
     super(props)
     this.state = {
-      countries : []
+      countries: []
     }
   }
-  
-  componentDidMount() {
+
+  componentDidMount () {
     this.request()
   }
 
-  async request() {
-    const response = await fetch('https://restcountries.eu/rest/v2/all');
-    const json = await response.json();
+  async request () {
+    const response = await fetch('https://restcountries.eu/rest/v2/all')
+    const json = await response.json()
     this.setState({
-      countries : json
+      countries: json
     })
   }
 
-  render() {
+  render () {
     let countries = this.state.countries
     let optionItems = countries.map((country) =>
-            <option key={country.name}>{country.name}</option>
-        )
+      <option key={country.name}>{country.name}</option>
+    )
     return (
-      <select name="country">
+      <select name='country'>
         {optionItems}
       </select>
     )
