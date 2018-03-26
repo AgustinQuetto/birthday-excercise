@@ -10,13 +10,13 @@ class UsersTable extends React.Component {
   
   render() {
     let users = this.props.users
-    let trUsers = users.map((user) => {
+    let trUsers = users.map((user, index) => {
       
       return (     
               <tr>
-                <td>{user.firstName} {user.lastName}</td>
-                <td>{user.country}</td>
-                <td>{user.day}/{user.month}/{user.year}</td>
+                <td id={index} onClick={this.props.onChangeValue}>{user.firstName} {user.lastName}</td>
+                <td id={index} onClick={this.props.onChangeValue}>{user.country}</td>
+                <td id={index} onClick={this.props.onChangeValue}>{user.day}/{user.month}/{user.year}</td>
               </tr>
             )
           }
@@ -26,7 +26,7 @@ class UsersTable extends React.Component {
       <table>
         <thead>
           <tr>
-            <td>{this.props.translate.firstName}</td>
+            <td>{this.props.translate.name}</td>
             <td>{this.props.translate.country}</td>
             <td>{this.props.translate.birthday}</td>
           </tr>

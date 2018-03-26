@@ -13,29 +13,34 @@ class App extends React.Component {
       formData: {
         firstName: '',
         lastName: '',
-        country: '',
+        country: 'Afghanistan',
         birthday: '',
         day: 0,
         month: 0,
         year: 0
       },
       translate: {},
-      message: ''
-
+      message: '',
+      value: ''
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.onSubmit = this.onSubmit.bind(this)
+  }
+
+  handleChangeValue = e => {
+    this.calculateBirthday(this.state.users[e.target.id])
+    console.log(e.target.id)
   }
 
   getLanguage(){
     const url = (window.location.href).split('/')
     let translate = {}
     switch(url[3]) {
-      case 'es': translate = { lang: 'es', firstName: 'Nombre', lastName: 'Apellido', country: 'País', birthday: 'Cumpleaños', here: 'aquí', save: 'Guardar' }
+      case 'es': translate = { lang: 'es', name: 'Nombre', firstName: 'Nombre', lastName: 'Apellido', country: 'País', birthday: 'Cumpleaños', here: 'aquí', save: 'Guardar' }
         break
-      case 'br': translate = { lang: 'br', firstName: 'Nome', lastName: 'Apelido', country: 'Country', birthday: 'Aniversário', here: 'aqui', save: 'Salvar' }
+      case 'br': translate = { lang: 'br', name: 'Nome', firstName: 'Nome', lastName: 'Apelido', country: 'Country', birthday: 'Aniversário', here: 'aqui', save: 'Salvar' }
         break
-      default: translate = { lang: 'en', firstName: 'Firstname', lastName: 'Lastname', country: 'Country', birthday: 'Birthday', here: 'here', save: 'Guardar' }
+      default: translate = { lang: 'en', name: 'Name', firstName: 'Firstname', lastName: 'Lastname', country: 'Country', birthday: 'Birthday', here: 'here', save: 'Guardar' }
         break
     }
 
@@ -94,14 +99,27 @@ class App extends React.Component {
     
     delete data.birthday
 
-    data.day = birthdayData[2]
-    data.month = birthdayData[1]
-    data.year = birthdayData[0]
+    data.day = parseInt(birthdayData[2], 0)
+    data.month = parseInt(birthdayData[1], 0)
+    data.year = parseInt(birthdayData[0], 0)
 
     newUsers.push(data)
     this.setState({users : newUsers})
-    localStorage.setItem('users', JSON.stringify(newUsers[newUsers.length-1]));
+    localStorage.setItem('users', JSON.stringify(newUsers))
     this.calculateBirthday(newUsers[newUsers.length-1])
+
+    const clear = {
+      firstName: '',
+      lastName: '',
+      country: 'Afghanistan',
+      birthday: '',
+      day: 0,
+      month: 0,
+      year: 0
+    }
+
+    this.setState({formData : clear})
+
   }
 
   handleInputChange(e) {
@@ -118,10 +136,10 @@ class App extends React.Component {
     if (obj.day <= d.getDay() && obj.month <= d.getMonth())
       yearsBirthday = d.getFullYear() - obj.year + 1
     else 
-      yearsBirthday = d.getFullYear() - this.state.formData.year
+      yearsBirthday = d.getFullYear() - obj.year
 
     switch(this.state.translate.lang) {
-      case 'es': newMessage = `Hola ${obj.firstName} ${obj.lastName} dede ${obj.country}. Desde el ${obj.day} del ${obj.month} tendrás ${yearsBirthday}.`
+      case 'es': newMessage = `Hola ${obj.firstName} ${obj.lastName} desde ${obj.country}. Desde el ${obj.day} del ${obj.month} tendrás ${yearsBirthday}.`
         break;
 
       case 'br': newMessage = `Olá ${obj.firstName} ${obj.lastName} da ${obj.country}. A partir de ${obj.day} de ${obj.month} você terá ${yearsBirthday}.`
@@ -131,10 +149,15 @@ class App extends React.Component {
         break;
     }
 
-    this.setState({
+    return this.setState({
       message: newMessage
     })
   }
+
+
+
+
+  
 
   render() {
     return (
@@ -145,11 +168,11 @@ class App extends React.Component {
             <form onChange={this.handleInputChange}>
               <div>
                 <label htmlFor="firstName">{this.state.translate.firstName}:</label>
-                <input type="text" placeholder={this.state.translate.firstName+' '+this.state.translate.here} name="firstName"/>
+                <input type="text" placeholder={this.state.translate.firstName+' '+this.state.translate.here} name="firstName" value={this.state.formData.firstName}/>
               </div>
               <div>
                <label htmlFor="lastname">{this.state.translate.lastName}:</label>
-               <input type="text" placeholder={this.state.translate.lastName+' '+this.state.translate.here} name="lastName"/>
+               <input type="text" placeholder={this.state.translate.lastName+' '+this.state.translate.here} name="lastName" value={this.state.formData.lastName}/>
               </div>
               <div>
                 <label htmlFor="country">{this.state.translate.country}:</label>
@@ -157,7 +180,7 @@ class App extends React.Component {
               </div>
               <div>
                 <label htmlFor="birthday">{this.state.translate.birthday}:</label>
-                <input type="date" name="birthday"/>
+                <input type="date" name="birthday" value={this.state.formData.birthday}/>
               </div>
               <input type="button" value={this.state.translate.save} onClick={this.onSubmit}/>
             </form>
@@ -168,7 +191,7 @@ class App extends React.Component {
             }
           </div>
           <div className="container-table">
-            <UsersTable users={this.state.users} translate={this.state.translate}/>
+            <UsersTable users={this.state.users} translate={this.state.translate} value={this.state.value} onChangeValue={this.handleChangeValue} />
           </div>
         </div>
         <h2>Agustín Ramiro Quetto Garay Lima</h2>
