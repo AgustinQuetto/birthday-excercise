@@ -1,6 +1,7 @@
 import React from 'react'
 import CountriesSelect from './components/countriesSelect'
 import UsersTable from './components/usersTable'
+var bcrypt = require('bcryptjs');
 
 class App extends React.Component {
 
@@ -30,11 +31,11 @@ class App extends React.Component {
     const url = (window.location.href).split('/')
     let translate = {}
     switch(url[3]) {
-      case 'es': translate = { firstName: 'Nombre', lastName: 'Apellido', country: 'País', birthday: 'Cumpleaños', here: 'aquí', save: 'Guardar' }
+      case 'es': translate = { lang: 'es', firstName: 'Nombre', lastName: 'Apellido', country: 'País', birthday: 'Cumpleaños', here: 'aquí', save: 'Guardar' }
         break
-      case 'br': translate = { firstName: 'Nome', lastName: 'Apelido', country: 'Country', birthday: 'Aniversário', here: 'aqui', save: 'Salvar' }
+      case 'br': translate = { lang: 'br', firstName: 'Nome', lastName: 'Apelido', country: 'Country', birthday: 'Aniversário', here: 'aqui', save: 'Salvar' }
         break
-      default: translate = { firstName: 'Firstname', lastName: 'Lastname', country: 'Country', birthday: 'Birthday', here: 'here', save: 'Guardar' }
+      default: translate = { lang: 'en', firstName: 'Firstname', lastName: 'Lastname', country: 'Country', birthday: 'Birthday', here: 'here', save: 'Guardar' }
         break
     }
 
@@ -50,11 +51,14 @@ class App extends React.Component {
     let language
 
     if (this.isRevisited() && localStorage.getItem('users') != null) {
-      let password
+      let notAuthed = true
+      let hash = '$2a$10$96FujQkdOJpRoTOwH1AhROWIFwwCLrhpNLPQhTGtqev8e.NMm2Lt2'
       
       do{
-        password = prompt("Enter an auth key for view old entries")
-      } while (password != '123')
+        if (bcrypt.compareSync(prompt("Enter an auth key for view old entries"), hash))
+          notAuthed = false
+
+      } while (notAuthed)
 
       let cachedUsers = []
       cachedUsers.push(JSON.parse(localStorage.getItem('users')))
@@ -109,13 +113,24 @@ class App extends React.Component {
   calculateBirthday(obj){
     let d = new Date()
     let yearsBirthday
+    let newMessage
 
     if (obj.day <= d.getDay() && obj.month <= d.getMonth())
       yearsBirthday = d.getFullYear() - obj.year + 1
     else 
       yearsBirthday = d.getFullYear() - this.state.formData.year
 
-    let newMessage = `Hello ${obj.firstName} ${obj.lastName} from ${obj.country}. From ${obj.day} on ${obj.month} you will have ${yearsBirthday}.`
+    switch(this.state.translate.lang) {
+      case 'es': newMessage = `Hola ${obj.firstName} ${obj.lastName} dede ${obj.country}. Desde el ${obj.day} del ${obj.month} tendrás ${yearsBirthday}.`
+        break;
+
+      case 'br': newMessage = `Olá ${obj.firstName} ${obj.lastName} da ${obj.country}. A partir de ${obj.day} de ${obj.month} você terá ${yearsBirthday}.`
+        break;
+
+      default: newMessage = `Hello ${obj.firstName} ${obj.lastName} from ${obj.country}. From ${obj.day} on ${obj.month} you will have ${yearsBirthday}.`
+        break;
+    }
+
     this.setState({
       message: newMessage
     })
