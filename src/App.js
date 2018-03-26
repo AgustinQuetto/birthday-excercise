@@ -69,7 +69,7 @@ class App extends React.Component {
       cachedUsers.push(JSON.parse(localStorage.getItem('users')))
 
       let newUsers = []
-      cachedUsers.map((user) => {
+      JSON.parse(localStorage.getItem('users')).map((user) => {
         return newUsers.push({
                 firstName: user.firstName,
                 lastName: user.lastName,
