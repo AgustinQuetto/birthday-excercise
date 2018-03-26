@@ -92,6 +92,10 @@ class App extends React.Component {
     return url[3] === 'revisited' ?  true :  false
   }
 
+  stringFormat (data) {
+    return data.replace(/(^|\s)\S/g, (l) => { return l.toUpperCase() })
+  }
+
   onSubmit (event) {
     let newUsers = this.state.users
     let data = this.state.formData
@@ -99,6 +103,8 @@ class App extends React.Component {
     
     delete data.birthday
 
+    data.firstName = this.stringFormat(data.firstName)
+    data.lastName = this.stringFormat(data.lastName)
     data.day = parseInt(birthdayData[2], 0)
     data.month = parseInt(birthdayData[1], 0)
     data.year = parseInt(birthdayData[0], 0)
