@@ -11,7 +11,8 @@ class UsersTable extends React.Component {
   render() {
     let users = this.props.users
     let trUsers = users.map((user) => {
-       return (     
+      
+      return (     
               <tr>
                 <td>{user.firstName} {user.lastName}</td>
                 <td>{user.country}</td>
@@ -20,6 +21,7 @@ class UsersTable extends React.Component {
             )
           }
         )
+      
     return (
       <table>
         <thead>

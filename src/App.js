@@ -24,6 +24,31 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
+  componentWillMount() {
+    if (localStorage.getItem('users') != null) {
+      let cachedUsers = []
+      cachedUsers.push(JSON.parse(localStorage.getItem('users')))
+
+      let newUsers = []
+      cachedUsers.map((user) => {
+        return newUsers.push({
+                firstName: user.firstName,
+                lastName: user.lastName,
+                country: user.country,
+                day: parseInt(user.day, 0),
+                month: parseInt(user.month, 0),
+                year: parseInt(user.year, 0)
+              })
+      })
+
+      this.setState({ users: newUsers })
+      console.log(this.state.users)
+    } else {
+      this.setState({ users: [] })
+      console.log(this.state.users)
+    }
+  }
+
   onSubmit(event){
     let newUsers = this.state.users
     let data = this.state.formData
@@ -37,6 +62,7 @@ class App extends React.Component {
 
     newUsers.push(data)
     this.setState({users : newUsers})
+    localStorage.setItem('users', JSON.stringify(newUsers[newUsers.length-1]));
     this.calculateBirthday(newUsers[newUsers.length-1])
   }
 
