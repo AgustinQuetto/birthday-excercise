@@ -27,7 +27,7 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  componentWillMount() {
+  componentWillMount () {
     let language
 
     if (this.isRevisited() && localStorage.getItem('users') != null) {
@@ -53,10 +53,8 @@ class App extends React.Component {
       })
 
       this.setState({ users: newUsers })
-      console.log(this.state.users)
     } else {
       this.setState({ users: [] })
-      console.log(this.state.users)
     }
     language = this.getLanguage()
     this.setState({
@@ -64,7 +62,7 @@ class App extends React.Component {
     })
   }
 
-  handleInputChange(e) {
+  handleInputChange (e) {
     let formData = Object.assign({}, this.state.formData)
     formData[e.target.name] = e.target.value
     this.setState({formData})
@@ -74,7 +72,7 @@ class App extends React.Component {
     this.calculateBirthday(this.state.users[e.target.id])
   }
 
-  getLanguage(){
+  getLanguage () {
     const url = (window.location.href).split('/')
     let translate = {}
     switch(url[3]) {
@@ -89,12 +87,12 @@ class App extends React.Component {
     return translate
   }
 
-  isRevisited() {
+  isRevisited () {
     const url = (window.location.href).split('/')
     return url[3] === 'revisited' ?  true :  false
   }
 
-  onSubmit(event){
+  onSubmit (event) {
     let newUsers = this.state.users
     let data = this.state.formData
     let birthdayData = this.state.formData.birthday.split('-')
@@ -124,7 +122,7 @@ class App extends React.Component {
 
   }
   
-  calculateBirthday(obj){
+  calculateBirthday (obj) {
     let d = new Date()
     let yearsBirthday
     let newMessage
@@ -150,7 +148,7 @@ class App extends React.Component {
     })
   }
 
-  render() {
+  render () {
     return (
     <div>
         <h1>Intive - FDV Excercise</h1>
