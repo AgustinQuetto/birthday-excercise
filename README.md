@@ -33,3 +33,7 @@ Go to http://localhost:3000/revisited and enter 123
 
 **Features:**
 Entry of users, calculator of years, translations, react components, await async, callbacks from child to parent, less, previous users are saved in local storage, webpack, responsive flex css features, fetching way, If a row is clicked on one of the previous visitors, it redraw the legend of the greeting.
+
+
+
+Trello: https://trello.com/b/fb6y3OQn/intive-fdv-birthday-excercise
