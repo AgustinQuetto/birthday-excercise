@@ -27,31 +27,6 @@ class App extends React.Component {
     this.onSubmit = this.onSubmit.bind(this)
   }
 
-  handleChangeValue = e => {
-    this.calculateBirthday(this.state.users[e.target.id])
-    console.log(e.target.id)
-  }
-
-  getLanguage(){
-    const url = (window.location.href).split('/')
-    let translate = {}
-    switch(url[3]) {
-      case 'es': translate = { lang: 'es', name: 'Nombre', firstName: 'Nombre', lastName: 'Apellido', country: 'País', birthday: 'Cumpleaños', here: 'aquí', save: 'Guardar' }
-        break
-      case 'br': translate = { lang: 'br', name: 'Nome', firstName: 'Nome', lastName: 'Apelido', country: 'Country', birthday: 'Aniversário', here: 'aqui', save: 'Salvar' }
-        break
-      default: translate = { lang: 'en', name: 'Name', firstName: 'Firstname', lastName: 'Lastname', country: 'Country', birthday: 'Birthday', here: 'here', save: 'Guardar' }
-        break
-    }
-
-    return translate
-  }
-
-  isRevisited() {
-    const url = (window.location.href).split('/')
-    return url[3] === 'revisited' ?  true :  false
-  }
-
   componentWillMount() {
     let language
 
@@ -64,9 +39,6 @@ class App extends React.Component {
           notAuthed = false
 
       } while (notAuthed)
-
-      let cachedUsers = []
-      cachedUsers.push(JSON.parse(localStorage.getItem('users')))
 
       let newUsers = []
       JSON.parse(localStorage.getItem('users')).map((user) => {
@@ -90,6 +62,36 @@ class App extends React.Component {
     this.setState({
       translate: language
     })
+  }
+
+  handleInputChange(e) {
+    let formData = Object.assign({}, this.state.formData)
+    formData[e.target.name] = e.target.value
+    this.setState({formData})
+  }
+
+  handleChangeValue = e => {
+    this.calculateBirthday(this.state.users[e.target.id])
+  }
+
+  getLanguage(){
+    const url = (window.location.href).split('/')
+    let translate = {}
+    switch(url[3]) {
+      case 'es': translate = { lang: 'es', name: 'Nombre', firstName: 'Nombre', lastName: 'Apellido', country: 'País', birthday: 'Cumpleaños', here: 'aquí', save: 'Guardar' }
+        break
+      case 'br': translate = { lang: 'br', name: 'Nome', firstName: 'Nome', lastName: 'Apelido', country: 'País', birthday: 'Aniversário', here: 'aqui', save: 'Salvar' }
+        break
+      default: translate = { lang: 'en', name: 'Name', firstName: 'Firstname', lastName: 'Lastname', country: 'Country', birthday: 'Birthday', here: 'here', save: 'Guardar' }
+        break
+    }
+
+    return translate
+  }
+
+  isRevisited() {
+    const url = (window.location.href).split('/')
+    return url[3] === 'revisited' ?  true :  false
   }
 
   onSubmit(event){
@@ -121,12 +123,6 @@ class App extends React.Component {
     this.setState({formData : clear})
 
   }
-
-  handleInputChange(e) {
-    let formData = Object.assign({}, this.state.formData)
-    formData[e.target.name] = e.target.value
-    this.setState({formData})
-  }
   
   calculateBirthday(obj){
     let d = new Date()
@@ -153,11 +149,6 @@ class App extends React.Component {
       message: newMessage
     })
   }
-
-
-
-
-  
 
   render() {
     return (
