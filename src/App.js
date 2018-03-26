@@ -117,7 +117,7 @@ class App extends React.Component {
     const clear = {
       firstName: '',
       lastName: '',
-      country: 'Afghanistan',
+      country: data.country,
       birthday: '',
       day: 0,
       month: 0,
